@@ -279,6 +279,186 @@ describe('The new candidate page', () => {
     	  .should('be.disabled')
 	})
 
+	it('requires valid Email', () => {
+		cy.get('[name=firstname]')
+		  .type('Firstname requires Email')
+
+		cy.get('[name=lastname]')
+		  .type('Lastname requires Email')
+
+		cy.get('[name=email]')
+		  .type('email')
+
+		cy.get('form')
+		  .contains('Enregistrer')
+    	  .should('be.disabled')
+
+		cy.get('[name=lastname]')
+		   .click()
+
+		cy.get('form')
+		  .find('.zmdi-alert-circle')
+
+		cy.get('[name=email]')
+		  .type('@email')
+
+		cy.get('form')
+		  .contains('Enregistrer')
+    	  .should('be.disabled')
+
+		cy.get('[name=lastname]')
+		   .click()
+
+		cy.get('form')
+		  .find('.zmdi-alert-circle')
+	})
+
+	it('requires valid Téléphone (or not)', () => {
+		cy.get('[name=firstname]')
+		  .type('Firstname requires Téléphone valid')
+
+		cy.get('[name=lastname]')
+		  .type('Lastname requires Téléphone valid')
+
+		cy.get('[name=email]')
+		  .type('email@requirestelephonevalid.fr')
+
+		cy.get('[name=phone]')
+		  .type('Attention chérie ça va couper !')
+		 
+		// cy.get('form')
+		//  .contains('Enregistrer')
+    	//  .should('be.disabled')
+    	//
+		// cy.get('[name=lastname]')
+		//   .click()
+		//
+		// cy.get('form')
+		//   .find('.zmdi-alert-circle')
+
+		cy.get('form')
+		  .contains('Enregistrer')
+    	  .click()
+
+    	cy.location('pathname')
+    	  .should('eq', '/dashboard/o/dkxzma3/jobs/2XMOI_yq66e6b')
+	})
+
+	it('requires valid Code postal (or not)', () => {
+		cy.get('[name=firstname]')
+		  .type('Firstname requires Code postal valid')
+
+		cy.get('[name=lastname]')
+		  .type('Lastname requires Code postal valid')
+
+		cy.get('[name=email]')
+		  .type('email@requirescodepostalvalid.fr')
+
+		cy.get('[name=zip_code]')
+		  .type('£33‡ šρ3@ķķ@Ƹρš ‡ƸƸ£')
+		 
+		// cy.get('form')
+		//  .contains('Enregistrer')
+    	//  .should('be.disabled')
+    	//
+		// cy.get('[name=lastname]')
+		//   .click()
+		//
+		// cy.get('form')
+		//   .find('.zmdi-alert-circle')
+
+		cy.get('form')
+		  .contains('Enregistrer')
+    	  .click()
+
+    	cy.location('pathname')
+    	  .should('eq', '/dashboard/o/dkxzma3/jobs/2XMOI_yq66e6b')
+	})
+
+	it('requires valid Site internet', () => {
+		cy.get('[name=firstname]')
+		  .type('Firstname requires Site internet valid')
+
+		cy.get('[name=lastname]')
+		  .type('Lastname requires Site internet valid')
+
+		cy.get('[name=email]')
+		  .type('email@requiressiteinternetvalid.fr')
+
+		cy.get('form')
+		  .contains('Site internet')
+		  .type('knoc knoc knoc')
+
+		cy.get('form')
+		  .contains('Enregistrer')
+    	  .click()
+
+    	cy.location('pathname')
+    	  .should('eq', '/dashboard/o/dkxzma3/jobs/2XMOI_yq66e6b/new-candidate/392777')
+
+    	cy.get('body')
+		  .contains('Impossible de créer ce candidat.')
+
+		cy.get('body')
+		  .contains('Profile media website : is an invalid URL')
+	})
+
+	it('requires valid Linkedin', () => {
+		cy.get('[name=firstname]')
+		  .type('Firstname requires Linkedin valid')
+
+		cy.get('[name=lastname]')
+		  .type('Lastname requires Linkedin valid')
+
+		cy.get('[name=email]')
+		  .type('email@requireslinkedinvalid.fr')
+
+		cy.get('form')
+		  .contains('Linkedin')
+		  .type('Allo !? Allo !? Allo !?')
+
+		cy.get('form')
+		  .contains('Enregistrer')
+    	  .click()
+
+    	cy.location('pathname')
+    	  .should('eq', '/dashboard/o/dkxzma3/jobs/2XMOI_yq66e6b/new-candidate/392777')
+
+    	cy.get('body')
+		  .contains('Impossible de créer ce candidat.')
+
+		cy.get('body')
+		  .contains('Profile media linkedin : is an invalid URL')
+	})
+
+	it('requires valid Twitter', () => {
+		cy.get('[name=firstname]')
+		  .type('Firstname requires Twitter valid')
+
+		cy.get('[name=lastname]')
+		  .type('Lastname requires Twitter valid')
+
+		cy.get('[name=email]')
+		  .type('email@requirestwitterinvalid.fr')
+
+		cy.get('form')
+		  .contains('Twitter')
+		  .type('C\'est l\'été pour la vie')
+
+		cy.get('form')
+		  .contains('Enregistrer')
+    	  .click()
+
+    	cy.location('pathname')
+    	  .should('eq', '/dashboard/o/dkxzma3/jobs/2XMOI_yq66e6b/new-candidate/392777')
+
+    	cy.get('body')
+		  .contains('Impossible de créer ce candidat.')
+
+		cy.get('body')
+		  .contains('Profile media twitter : is an invalid URL')
+	})
+
 	it('navigate to /dashboard/o/dkxzma3/jobs/2XMOI_yq66e6b on successful creating a simple candidat', () => {
 		cy.get('[name=firstname]')
 		  .type('Firstname simple')
@@ -288,6 +468,68 @@ describe('The new candidate page', () => {
 
 		cy.get('[name=email]')
 		  .type('email@simple.fr')
+
+		cy.get('form')
+		  .contains('Enregistrer')
+    	  .click()
+
+    	cy.location('pathname')
+    	  .should('eq', '/dashboard/o/dkxzma3/jobs/2XMOI_yq66e6b')
+	})
+
+	it('navigate to /dashboard/o/dkxzma3/jobs/2XMOI_yq66e6b on successful creating an almost complete candidat', () => {
+		cy.get('[name=firstname]')
+		  .type('Firstname complete')
+
+		cy.get('[name=lastname]')
+		  .type('Lastname complete')
+
+		cy.get('[name=email]')
+		  .type('email@complete.fr')
+
+		cy.get('[name=subtitle]')
+		  .type('Explorateur')
+
+		cy.get('[name=phone]')
+		  .type('0772233446')
+
+		cy.get('[name=address]')
+		  .type('Vallée de la Hunza')
+
+		cy.get('[name=city]')
+		  .type('Shangri-La')
+
+		cy.get('[name=zip_code]')
+		  .type('00700')
+
+		cy.get('form div div.form-group a.jungle-select-filter input').eq(0)
+		  .type('France')
+		cy.get('form div.jungle-select-item')
+		  .contains('France')
+		  .click()
+
+		cy.get('[name=media_website]')
+		  .type('http://www.nous.com')
+
+		cy.get('[name=media_linkedin]')
+		  .type('https://fr.linkedin.com/pub/99FR/')
+
+		cy.get('[name=media_twitter]')
+		  .type('https://twitter.com/mesange')
+
+		cy.get('[name=cover_letter]')
+		  .type('Là, tout n’est qu’ordre et beauté, Luxe, calme et volupté.')
+
+		cy.get('form textarea').eq(1)
+		  .type('Creation and success through sharing')
+
+		cy.get('form textarea').eq(2)
+		  .type('Finding the good in the others and make it shine')
+
+		cy.get('[name=referrer')
+		  .type('welcome')
+		cy.get('.react-autosuggest__suggestion.react-autosuggest__suggestion--first')
+		  .click()
 
 		cy.get('form')
 		  .contains('Enregistrer')
